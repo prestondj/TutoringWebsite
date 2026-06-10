@@ -1,4 +1,59 @@
 /* =========================
+   DESIGN TOKENS
+========================= */
+:root {
+  --accent: #0b2a4a;
+
+  --text: #1e1e1e;
+  --text-light: #777;
+  --text-inverse: #ffffff;
+
+  --bg: #ffffff;
+  --bg-alt: #f7f7f7;
+
+  --border: #ddd;
+  --border-light: #eee;
+
+  --success: #1f9d55;
+  --warning: #ffbf47;
+
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   HIGH CONTRAST THEME
+========================= */
+body.accessible-mode {
+  --text: #000000;
+  --bg: #ffffff;
+
+  --accent: #000000;
+
+  --border: #000000;
+  --border-light: #000000;
+
+  --text-inverse: #ffffff;
+
+  --success: #0b6b2f;
+  --warning: #b7791f;
+}
+
+/* =========================
+   ACCESSIBLE MODE FOCUS ONLY
+========================= */
+body.accessible-mode :focus-visible {
+  outline: 4px solid var(--warning);
+  outline-offset: 4px;
+}
+
+body.accessible-mode :focus {
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+}
+
+
+/* =========================
    BASE RESET
 ========================= */
 * {
@@ -6,12 +61,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
-}
-
-:root {
-  --accent: #0b2a4a;
-  --text: #1e1e1e;
-  --bg: #ffffff;
 }
 
 body {
@@ -33,10 +82,9 @@ body {
   align-items: center;
   padding: 14px 40px;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow);
 }
 
-/* NAV LINKS */
 .navbar nav {
   display: flex;
   align-items: center;
@@ -45,7 +93,7 @@ body {
 .navbar nav a {
   margin-left: 22px;
   text-decoration: none;
-  color: white;
+  color: var(--text-inverse);
   font-size: 14px;
   opacity: 0.85;
   transition: all 0.2s ease;
@@ -58,27 +106,21 @@ body {
 
 /* =========================
    BRAND LINK
-   Shared base for the logo+text link used in both navbar and footer.
-   Visual variants are handled via .navbar and .footer context.
 ========================= */
 .brand-link {
   display: flex;
   align-items: center;
   gap: 10px;
-
   text-decoration: none;
   font-weight: bold;
-
   padding: 6px 10px;
   border-radius: 6px;
-
   cursor: pointer;
-
   transition: background 0.2s ease, opacity 0.2s ease;
 }
 
 .navbar .brand-link {
-  color: white;
+  color: var(--text-inverse);
   font-size: 16px;
   letter-spacing: 0.5px;
 }
@@ -98,8 +140,6 @@ body {
 
 /* =========================
    BRAND ICON
-   Shared class for the logo image inside .brand-link.
-   Size and filter are set per context.
 ========================= */
 .navbar .brand-icon {
   width: 30px;
@@ -118,8 +158,8 @@ body {
 .footer {
   text-align: center;
   padding: 20px;
-  border-top: 1px solid #eee;
-  color: #777;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-light);
 }
 
 .footer-content {
@@ -129,8 +169,16 @@ body {
   gap: 10px;
 }
 
+/* =========================
+   FOOTER LINKS SPACING
+========================= */
+
 .footer-links {
-  margin-top: 8px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .footer-links a {
@@ -138,6 +186,7 @@ body {
   color: #777;
   text-decoration: none;
   transition: 0.2s ease;
+  padding: 4px 6px;
 }
 
 .footer-links a:hover {
@@ -190,7 +239,7 @@ body {
 
 .hero h1 {
   font-size: 3.2rem;
-  color: white;
+  color: var(--text-inverse);
   margin-bottom: 20px;
   text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
@@ -207,9 +256,7 @@ body {
   width: 160px;
   height: 160px;
   margin-bottom: 20px;
-
   border-radius: 14px;
-
   padding: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
@@ -219,7 +266,7 @@ body {
 ========================= */
 .btn {
   display: inline-block;
-  background: white;
+  background: var(--text-inverse);
   color: var(--accent);
 
   padding: 14px 28px;
@@ -248,6 +295,13 @@ body {
   margin: 0 auto;
 }
 
+h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: var(--accent);
+}
+
 .container h2 {
   margin-bottom: 20px;
 }
@@ -259,17 +313,6 @@ body {
 
 .container p {
   margin-bottom: 14px;
-}
-
-.container ul {
-  margin-bottom: 16px;
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  text-align: center;
-  color: var(--accent);
 }
 
 p {
@@ -290,7 +333,7 @@ ul li {
   padding-left: 28px;
   margin-bottom: 10px;
   line-height: 1.5;
-  color: #333;
+  color: var(--text);
 }
 
 ul li::before {
@@ -330,16 +373,15 @@ ul li::before {
   border: none;
   border-radius: 10px;
 
-  background: #0b2a4a;
+  background: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
 
   cursor: pointer;
-
   z-index: 9999;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: var(--shadow-soft);
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
@@ -353,9 +395,25 @@ ul li::before {
   transform: scale(1.05);
 }
 
-/* ACTIVE STATE */
 .accessibility-toggle.active {
-  background: #1f9d55; /* green */
+  background: var(--success);
+}
+
+/* =========================
+   ACCESSIBILITY MODE
+========================= */
+body.accessible-mode {
+  font-size: 18px;
+  line-height: 1.8;
+  letter-spacing: 0.2px;
+}
+
+body.accessible-mode a:focus,
+body.accessible-mode button:focus,
+body.accessible-mode input:focus,
+body.accessible-mode textarea:focus {
+  outline: 3px solid var(--warning);
+  outline-offset: 3px;
 }
 
 /* =========================
@@ -370,13 +428,13 @@ ul li::before {
 
 .card {
   padding: 20px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-light);
   border-radius: 8px;
-  background: white;
+  background: var(--bg);
 }
 
 .card h3{
-  margin-top: 0;
+  margin-top: 0px;
 }
 
 .highlight {
@@ -404,30 +462,28 @@ ul li::before {
 .form input,
 .form textarea {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.form-message {
+.form-message,
+.form textarea {
   min-height: 120px;
   resize: vertical;
+  overflow-x: hidden;
 }
 
 .form button {
   background: var(--accent);
-  color: white;
+  color: var(--text-inverse);
 
   padding: 12px;
   border: none;
   border-radius: 6px;
 
   cursor: pointer;
-}
-
-/* ensure contact never fades out */
-#contact {
-  opacity: 1 !important;
-  transform: none !important;
 }
 
 /* =========================
@@ -439,10 +495,87 @@ ul li::before {
 }
 
 /* =========================
+   CONTACT FIX
+========================= */
+#contact {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* =========================
+   DISABLE FOCUS IN NORMAL MODE
+========================= */
+/* NO OUTLINE ON MOUSE CLICK */
+:focus {
+  outline: none;
+}
+
+/* KEYBOARD ONLY FOCUS */
+:focus-visible {
+  outline: 3px solid var(--warning);
+  outline-offset: 3px;
+}
+
+/* Links */
+a:focus-visible {
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+}
+
+/* Buttons */
+button:focus-visible,
+.btn:focus-visible,
+.accessibility-toggle:focus-visible {
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+}
+
+/* Form elements */
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+  border-color: #ffbf47;
+}
+
+/* Nav links */
+.navbar nav a:focus-visible {
+  outline: 3px solid #ffbf47;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* =========================
+   SKIP LINK
+========================= */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 10px;
+
+  background: #000;
+  color: #fff;
+
+  padding: 10px 14px;
+  border-radius: 6px;
+
+  text-decoration: none;
+  font-size: 14px;
+
+  z-index: 10000;
+}
+
+/* Make it visible when focused */
+.skip-link:focus-visible {
+  top: 10px;
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-
   .navbar {
     flex-direction: column;
     gap: 10px;

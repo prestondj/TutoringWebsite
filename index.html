@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+<a href="#home" class="skip-link">Skip to content</a>
 <!-- HEADER -->
 <header class="navbar">
 
@@ -98,6 +98,7 @@
       All sessions are 1-to-1 online lessons via Zoom.
       There are no contracts or hidden fees — you simply book sessions as needed.
       Every lesson is structured, focused, and designed to improve exam performance.
+      If none of the below are suitable, please get in touch to discuss a custom package.
     </p>
 
     <div class="pricing-grid">
@@ -133,9 +134,14 @@
 
     <form class="form" action="https://formspree.io/f/xlgkwrdn" method="POST">
 
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea class="form-message" name="message" placeholder="What would you like help with?" required></textarea>
+      <label for="name">Name</label>
+      <input id="name" type="text" name="name" required />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
 
       <input type="text" name="_gotcha" style="display:none"/>
       <input type="hidden" name="_subject" value="New PDJ Tutoring Enquiry" />
@@ -162,6 +168,7 @@
     <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
+      <a href="accessibility.html">Accessibility Statement</a>
       <a href="acknowledgements.html">Acknowledgements</a>
     </div>
 

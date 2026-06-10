@@ -41,11 +41,34 @@ function initAccessibilityToggle() {
 
   btn.addEventListener("click", () => {
     window.accessibleMode = !window.accessibleMode;
+
     setAccessibleMode(window.accessibleMode);
     applyAccessibilityUI();
+    applyAccessibilityMode();
 
     console.log("Accessible mode:", window.accessibleMode);
   });
+}
+
+/* =========================
+   ACCESSIBILITY FEATURES
+========================= */
+
+function applyAccessibilityMode() {
+  const enabled = window.accessibleMode;
+
+  // BODY CLASS (global hook for CSS)
+  document.body.classList.toggle("accessible-mode", enabled);
+
+  // Disable motion-heavy UI if enabled
+  if (enabled) {
+    document.body.classList.add("reduce-motion");
+  } else {
+    document.body.classList.remove("reduce-motion");
+  }
+
+  // Optional: improve scroll behaviour safety
+  document.documentElement.style.scrollBehavior = enabled ? "auto" : "smooth";
 }
 
 /* =========================
@@ -159,6 +182,10 @@ function setupAnchorNavigation() {
 function setupHeroFade() {
   window.addEventListener("scroll", function () {
     if (!heroBg) return;
+    if(accessibleMode) {
+      heroBg.style.opacity = 1;
+      return;
+    }
 
     const scrollY = window.scrollY;
     const opacity = Math.max(1 - scrollY / 1000, 0.25);
@@ -171,6 +198,16 @@ function setupHeroFade() {
    FADE SYSTEM
 ========================= */
 function updateAnimations() {
+
+  // ACCESSIBILITY OVERRIDE
+  if (window.accessibleMode) {
+    fadeElements.forEach(el => {
+      el.style.opacity = 1;
+      el.style.transform = "none";
+    });
+    return;
+  }
+
   const viewportHeight = window.innerHeight;
 
   fadeElements.forEach(el => {
@@ -198,6 +235,7 @@ window.addEventListener("DOMContentLoaded", function () {
   updateAnimations();
 
   initAccessibilityToggle();
+  applyAccessibilityMode();
 });
 
 /* =========================
