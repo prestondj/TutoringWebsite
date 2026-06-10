@@ -12,9 +12,8 @@
 <!-- HEADER -->
 <header class="navbar">
 
-  <!-- ONLY CHANGE: logo + text now a single button -->
-  <a href="#home" class="brand-button" aria-label="Go to homepage">
-    <img src="logo-white.png" alt="PDJ Tutoring logo" class="logo-icon">
+  <a href="#home" class="brand-link" aria-label="Go to homepage">
+    <img src="logo-white.png" alt="PDJ Tutoring logo" class="brand-icon">
     <span>PDJ Tutoring</span>
   </a>
 
@@ -72,8 +71,8 @@
     <h2>Subjects Available</h2>
 
     <p>
-      Lessons are tailored to each student’s exam board, ability, and goals -
-      whether that’s passing, improving confidence, or aiming for top grades.
+      Lessons are tailored to each student's exam board, ability, and goals -
+      whether that's passing, improving confidence, or aiming for top grades.
       For students taking classes over an extended period, I provide structured sessions,
       ensuring full coverage of the syllabus, and sufficient time for exam practice.
     </p>
@@ -123,7 +122,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section no-fade">
+<section id="contact" class="section">
   <div class="container">
     <h2>Get in Touch</h2>
 
@@ -136,11 +135,12 @@
 
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
-      <textarea id="messagebox" name="message" placeholder="What would you like help with?" required></textarea>
+      <textarea class="form-message" name="message" placeholder="What would you like help with?" required></textarea>
 
       <input type="text" name="_gotcha" style="display:none"/>
       <input type="hidden" name="_subject" value="New PDJ Tutoring Enquiry" />
       <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value="thank-you.html">
 
       <button type="submit">Request Free Consultation</button>
     </form>
@@ -152,20 +152,26 @@
 <footer class="footer">
   <div class="footer-content">
 
-    <a href="#home" class="footer-brand-button">
-      <img src="logo-blue.png" class="footer-icon" alt="PDJ Tutoring logo">
+    <a href="#home" class="brand-link">
+      <img src="logo-blue.png" class="brand-icon" alt="PDJ Tutoring logo">
       <span>PDJ Tutoring</span>
     </a>
 
     <p>PDJ Tutoring - By Preston Johnson</p>
 
-    <!-- NEW: legal links -->
     <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="acknowledgements.html">Acknowledgements</a>
     </div>
 
   </div>
 </footer>
+
+<!-- ACCESSIBILITY TOGGLE -->
+<button class="accessibility-toggle" id="accessibilityToggle" aria-label="Toggle accessibility mode">
+  <img src="access.png" alt="Accessibility icon">
+</button>
 
 <script src="script.js"></script>
 </body>

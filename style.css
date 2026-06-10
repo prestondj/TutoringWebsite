@@ -36,31 +36,6 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* BRAND BUTTON (HEADER LOGO + TEXT) */
-.brand-button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  text-decoration: none;
-  color: white;
-
-  font-weight: bold;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-
-  padding: 6px 10px;
-  border-radius: 6px;
-
-  cursor: pointer;
-
-  transition: background 0.2s ease, opacity 0.2s ease;
-}
-
-.brand-button:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
 /* NAV LINKS */
 .navbar nav {
   display: flex;
@@ -81,11 +56,60 @@ body {
   transform: translateY(-1px);
 }
 
-/* LOGO ICON */
-.logo-icon {
+/* =========================
+   BRAND LINK
+   Shared base for the logo+text link used in both navbar and footer.
+   Visual variants are handled via .navbar and .footer context.
+========================= */
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  text-decoration: none;
+  font-weight: bold;
+
+  padding: 6px 10px;
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.navbar .brand-link {
+  color: white;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.navbar .brand-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.footer .brand-link {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.footer .brand-link:hover {
+  background: rgba(11, 42, 74, 0.08);
+}
+
+/* =========================
+   BRAND ICON
+   Shared class for the logo image inside .brand-link.
+   Size and filter are set per context.
+========================= */
+.navbar .brand-icon {
   width: 30px;
   height: 30px;
   filter: brightness(0) invert(1);
+}
+
+.footer .brand-icon {
+  width: 26px;
+  height: 26px;
 }
 
 /* =========================
@@ -103,36 +127,6 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-}
-
-/* FOOTER BRAND BUTTON */
-.footer-brand-button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  text-decoration: none;
-  color: var(--accent);
-
-  font-weight: bold;
-  font-size: 14px;
-
-  padding: 6px 10px;
-  border-radius: 6px;
-
-  cursor: pointer;
-
-  transition: background 0.2s ease, opacity 0.2s ease;
-}
-
-.footer-brand-button:hover {
-  background: rgba(11, 42, 74, 0.08);
-}
-
-/* FOOTER ICON */
-.footer-icon {
-  width: 26px;
-  height: 26px;
 }
 
 .footer-links {
@@ -324,6 +318,47 @@ ul li::before {
 }
 
 /* =========================
+   ACCESSIBILITY BUTTON
+========================= */
+.accessibility-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #0b2a4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  z-index: 9999;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.accessibility-toggle img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+.accessibility-toggle:hover {
+  transform: scale(1.05);
+}
+
+/* ACTIVE STATE */
+.accessibility-toggle.active {
+  background: #1f9d55; /* green */
+}
+
+/* =========================
    GRID
 ========================= */
 .grid {
@@ -338,6 +373,10 @@ ul li::before {
   border: 1px solid #eee;
   border-radius: 8px;
   background: white;
+}
+
+.card h3{
+  margin-top: 0;
 }
 
 .highlight {
@@ -369,7 +408,7 @@ ul li::before {
   border-radius: 5px;
 }
 
-#messagebox {
+.form-message {
   min-height: 120px;
   resize: vertical;
 }
@@ -432,4 +471,3 @@ ul li::before {
     font-size: 1rem;
   }
 }
-

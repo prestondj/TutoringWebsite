@@ -7,11 +7,17 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 
+<script>
+  const STATE_KEY = "pdj_tutoring_state";
+
+  localStorage.setItem(STATE_KEY, "handled");
+</script>
+
 <body>
 
 <header class="navbar">
-  <a href="index.html" class="brand-button">
-    <img src="logo-white.png" class="logo-icon" alt="PDJ Tutoring logo">
+  <a href="index.html" class="brand-link">
+    <img src="logo-white.png" class="brand-icon" alt="PDJ Tutoring logo">
     <span>PDJ Tutoring</span>
   </a>
   <nav>
@@ -25,12 +31,12 @@
 
   <div class="container hero-content">
 
-    <img src="logo-blue.png" class="hero-logo" alt="PDJ Tutoring logo">
+    <img src="logo-white.png" class="hero-logo" alt="PDJ Tutoring logo">
 
     <h1>Thanks for your message!</h1>
 
     <p>
-      I’ve received your enquiry and will respond within 24 hours.
+      I've received your enquiry and will respond within 24 hours.
     </p>
 
     <a class="btn" href="index.html">Return to Home</a>
@@ -42,15 +48,20 @@
 <footer class="footer">
   <div class="footer-content">
 
-    <a href="index.html" class="footer-brand-button">
-      <img src="logo-blue.png" class="footer-icon" alt="PDJ Tutoring logo">
+    <a href="index.html" class="brand-link">
+      <img src="logo-blue.png" class="brand-icon" alt="PDJ Tutoring logo">
       <span>PDJ Tutoring</span>
     </a>
 
-    <p class="footer-text">PDJ Tutoring - By Preston Johnson</p>
+    <p>PDJ Tutoring - By Preston Johnson</p>
 
   </div>
 </footer>
+
+<!-- ACCESSIBILITY TOGGLE -->
+<button class="accessibility-toggle" id="accessibilityToggle" aria-label="Toggle accessibility mode">
+  <img src="access.png" alt="Accessibility icon">
+</button>
 
 </body>
 </html>
