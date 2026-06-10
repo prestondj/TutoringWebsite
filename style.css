@@ -40,16 +40,12 @@ body.accessible-mode {
 }
 
 /* =========================
-   ACCESSIBLE MODE FOCUS ONLY
+   ACCESSIBLE MODE FOCUS
+   Show outline on ALL focus events (mouse + keyboard)
 ========================= */
-body.accessible-mode :focus-visible {
+body.accessible-mode :focus {
   outline: 4px solid var(--warning);
   outline-offset: 4px;
-}
-
-body.accessible-mode :focus {
-  outline: 3px solid #ffbf47;
-  outline-offset: 3px;
 }
 
 
@@ -408,14 +404,6 @@ body.accessible-mode {
   letter-spacing: 0.2px;
 }
 
-body.accessible-mode a:focus,
-body.accessible-mode button:focus,
-body.accessible-mode input:focus,
-body.accessible-mode textarea:focus {
-  outline: 3px solid var(--warning);
-  outline-offset: 3px;
-}
-
 /* =========================
    GRID
 ========================= */
@@ -503,14 +491,25 @@ body.accessible-mode textarea:focus {
 }
 
 /* =========================
-   DISABLE FOCUS IN NORMAL MODE
+   FOCUS MANAGEMENT
+
+   Normal mode:
+     - Mouse click  → :focus fires, :focus-visible does NOT → outline: none
+     - Keyboard tab → :focus fires, :focus-visible ALSO fires → outline shows
+
+   Accessible mode:
+     - body.accessible-mode :focus has specificity (0,2,1), which beats
+       :focus:not(:focus-visible) at (0,2,0), so it always wins and
+       outlines show for both mouse and keyboard.
 ========================= */
-/* NO OUTLINE ON MOUSE CLICK */
-:focus {
+
+/* Suppress outline for mouse-only focus (no :focus-visible match).
+   Specificity (0,2,0) — beats plain :focus rules below. */
+:focus:not(:focus-visible) {
   outline: none;
 }
 
-/* KEYBOARD ONLY FOCUS */
+/* Show outline for keyboard focus */
 :focus-visible {
   outline: 3px solid var(--warning);
   outline-offset: 3px;
