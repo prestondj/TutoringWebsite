@@ -8,7 +8,6 @@ const contactForm = document.querySelector("form");
 /* =========================
    ACCESSIBILITY MODE
 ========================= */
-
 const ACCESS_KEY = "pdj_accessible_mode";
 
 function getAccessibleMode() {
@@ -35,7 +34,6 @@ function initAccessibilityToggle() {
   const btn = document.getElementById("accessibilityToggle");
   if (!btn) return;
 
-  // initialise state
   window.accessibleMode = getAccessibleMode();
   applyAccessibilityUI();
 
@@ -50,39 +48,24 @@ function initAccessibilityToggle() {
   });
 }
 
-/* =========================
-   ACCESSIBILITY FEATURES
-========================= */
-
 function applyAccessibilityMode() {
   const enabled = window.accessibleMode;
 
-  // BODY CLASS (global hook for CSS)
   document.body.classList.toggle("accessible-mode", enabled);
 
-  // Disable motion-heavy UI if enabled
   if (enabled) {
     document.body.classList.add("reduce-motion");
   } else {
     document.body.classList.remove("reduce-motion");
   }
 
-  // Optional: improve scroll behaviour safety
   document.documentElement.style.scrollBehavior = enabled ? "auto" : "smooth";
 }
 
 /* =========================
-   STATE
+   STATE & MOBILE ROUTING HELPERS
 ========================= */
 const STATE_KEY = "pdj_tutoring_state";
-
-/*
-States:
-- null → no interaction
-- "not_submitted"
-- "unhandled" → submitted, awaiting thank-you visit
-- "handled" → completed flow, block resubmission
-*/
 
 function getState() {
   return localStorage.getItem(STATE_KEY);
@@ -90,6 +73,12 @@ function getState() {
 
 function setState(value) {
   localStorage.setItem(STATE_KEY, value);
+}
+
+// Mobile-safe check to see if the user is currently looking at the thank you page
+function isThankYouPage() {
+  const path = window.location.pathname;
+  return path.endsWith("thank-you.html") || path.includes("thank-you");
 }
 
 /* =========================
@@ -102,14 +91,15 @@ function handlePageStateRouting() {
 
   // First visit after submit → force thank you page
   if (state === "unhandled") {
-    if (!window.location.pathname.includes("thank-you.html")) {
+    if (!isThankYouPage()) {
       window.location.href = "thank-you.html";
     }
     return;
   }
 
-  // handled → normal behaviour
+  // handled → normal behaviour (but form locking logic checks this state on submit)
   if (state === "handled") {
+    applyFormLockUI(); // Ensure UI state matches across page switches
     return;
   }
 }
@@ -117,6 +107,21 @@ function handlePageStateRouting() {
 /* =========================
    FORM SUBMISSION TRACKING
 ========================= */
+function applyFormLockUI() {
+  if (!contactForm) return;
+  const submitBtn = contactForm.querySelector("button[type='submit']");
+  
+  if (getState() === "handled") {
+    // Visually flag the block on mobile so the user knows it's unclickable
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Form Already Submitted";
+      submitBtn.style.opacity = "0.5";
+      submitBtn.style.cursor = "not-allowed";
+    }
+  }
+}
+
 function handleFormSubmitTracking() {
   if (!contactForm) return;
 
@@ -139,9 +144,8 @@ function handleFormSubmitTracking() {
    THANK YOU FINALISATION
 ========================= */
 function finalizeStateIfThankYouPage() {
-  if (window.location.pathname.includes("thank-you.html")) {
+  if (isThankYouPage()) {
     const state = getState();
-
     if (state === "unhandled") {
       setState("handled");
     }
@@ -182,7 +186,7 @@ function setupAnchorNavigation() {
 function setupHeroFade() {
   window.addEventListener("scroll", function () {
     if (!heroBg) return;
-    if(accessibleMode) {
+    if (window.accessibleMode) {
       heroBg.style.opacity = 1;
       return;
     }
@@ -198,8 +202,6 @@ function setupHeroFade() {
    FADE SYSTEM
 ========================= */
 function updateAnimations() {
-
-  // ACCESSIBILITY OVERRIDE
   if (window.accessibleMode) {
     fadeElements.forEach(el => {
       el.style.opacity = 1;
@@ -212,11 +214,7 @@ function updateAnimations() {
 
   fadeElements.forEach(el => {
     const rect = el.getBoundingClientRect();
-
-    const distance = Math.abs(
-      rect.top + rect.height / 2 - viewportHeight / 2
-    );
-
+    const distance = Math.abs(rect.top + rect.height / 2 - viewportHeight / 2);
     const maxDistance = viewportHeight * 0.8;
 
     el.style.opacity = Math.max(1 - distance / maxDistance, 0.5);
@@ -224,18 +222,23 @@ function updateAnimations() {
 }
 
 /* =========================
-   INIT
+   MOBILE-SAFE APP RUNNER
 ========================= */
-window.addEventListener("DOMContentLoaded", function () {
+function initApp() {
   finalizeStateIfThankYouPage();
   handlePageStateRouting();
   handleFormSubmitTracking();
+  applyFormLockUI(); // Ensure mobile buttons evaluate state instantly
   setupAnchorNavigation();
   setupHeroFade();
   updateAnimations();
-
   initAccessibilityToggle();
   applyAccessibilityMode();
+}
+
+// Fix for Mobile Cache (bfcache): 'pageshow' executes even when hitting back/forward buttons
+window.addEventListener("pageshow", function (event) {
+  initApp();
 });
 
 /* =========================
