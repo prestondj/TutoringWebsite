@@ -616,18 +616,29 @@ textarea:focus-visible {
 /* =========================
    DEVELOPMENT BADGE OVERRIDE
 ========================= */
-.dev-version-badge {
+
+.reviews-button {
   position: fixed;
-  bottom: 12px;
-  right: 12px;
-  z-index: 9999;
-  pointer-events: none;
-  user-select: none;
-  
-  /* Reusing your exact design tokens */
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
   background: var(--accent);
-  color: var(--text-inverse);
-  font-family: monospace;
-  font-size: 11px;
-  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  z-index: 9999;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease;
+}
+
+.reviews-button img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+.reviews-button:hover {
+  transform: scale(1.05);
 }
