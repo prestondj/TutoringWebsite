@@ -221,10 +221,32 @@ function updateAnimations() {
   });
 }
 
+/* Add this to your script.js */
+function setupNavbarScroll() {
+  const navbar = document.querySelector(".navbar");
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener("scroll", () => {
+    // If in accessible mode, we don't want to hide the nav
+    if (window.accessibleMode) return;
+
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+      // Scrolling down - hide navbar
+      navbar.classList.add("navbar-hidden");
+    } else {
+      // Scrolling up - show navbar
+      navbar.classList.remove("navbar-hidden");
+    }
+    
+    lastScrollY = window.scrollY;
+  });
+}
+
 /* =========================
    MOBILE-SAFE APP RUNNER
 ========================= */
 function initApp() {
+  setupNavbarScroll();
   finalizeStateIfThankYouPage();
   handlePageStateRouting();
   handleFormSubmitTracking();
