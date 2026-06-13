@@ -92,7 +92,7 @@ function handlePageStateRouting() {
   // First visit after submit → force thank you page
   if (state === "unhandled") {
     if (!isThankYouPage()) {
-      window.location.href = "thank-you.html";
+      window.location.href = "/pages/thank-you.html";
     }
     return;
   }

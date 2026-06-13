@@ -225,7 +225,7 @@ body {
       rgba(11, 42, 74, 0.55),
       rgba(11, 42, 74, 0.55)
     ),
-    url("bg1.png");
+    url("/assets/primarybg.png");
 
   background-size: cover;
   background-position: center;
