@@ -68,6 +68,7 @@ body {
 /* =========================
    NAVBAR
 ========================= */
+/* Update your existing .navbar class */
 .navbar {
   position: fixed;
   top: 0;
@@ -79,6 +80,14 @@ body {
   padding: 14px 40px;
   z-index: 1000;
   box-shadow: var(--shadow);
+  
+  /* ADD THESE TWO LINES */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* ADD THIS CLASS */
+.navbar.navbar-hidden {
+  transform: translateY(-100%);
 }
 
 .navbar nav {
