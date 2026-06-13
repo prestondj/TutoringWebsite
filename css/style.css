@@ -199,6 +199,45 @@ body {
 }
 
 /* =========================
+   SOCIAL MEDIA SECTION
+========================= */
+
+.social-section {
+  padding: 20px 20px 20px !important;
+}
+
+.social-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.social-container a {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border-light);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.social-container a:hover {
+  transform: translateY(-3px);
+  background: var(--bg);
+}
+
+.social-container img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+/* =========================
    HERO
 ========================= */
 .hero {
@@ -497,6 +536,7 @@ body.accessible-mode {
 #contact {
   opacity: 1 !important;
   transform: none !important;
+  padding-bottom: 20px !important;
 }
 
 /* =========================
