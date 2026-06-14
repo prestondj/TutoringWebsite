@@ -50,11 +50,13 @@ function initAccessibilityToggle() {
 
 function applyAccessibilityMode() {
   const enabled = window.accessibleMode;
+  const navbar = document.querySelector(".navbar");
 
   document.body.classList.toggle("accessible-mode", enabled);
 
   if (enabled) {
     document.body.classList.add("reduce-motion");
+    navbar.classList.remove("navbar-hidden"); // Ensure navbar is visible in accessible mode
   } else {
     document.body.classList.remove("reduce-motion");
   }
@@ -228,8 +230,9 @@ function setupNavbarScroll() {
 
   window.addEventListener("scroll", () => {
     // If in accessible mode, we don't want to hide the nav
-    if (window.accessibleMode) return;
-
+    if (window.accessibleMode){
+      return;
+    }
     if (window.scrollY > lastScrollY && window.scrollY > 100) {
       // Scrolling down - hide navbar
       navbar.classList.add("navbar-hidden");
