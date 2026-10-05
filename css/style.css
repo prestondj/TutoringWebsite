@@ -359,6 +359,10 @@ h2 {
   margin-bottom: 14px;
 }
 
+#banner-text{
+  text-align: center;
+}
+
 p {
   line-height: 1.7;
 }
